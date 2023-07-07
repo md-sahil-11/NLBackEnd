@@ -2,6 +2,7 @@
 from rest_framework import permissions, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from apps.users.api.serializers import UserSerializer
 from apps.users.models import User
@@ -11,6 +12,7 @@ from apps.users.services import *
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
     @action(
         detail=False,
@@ -22,8 +24,8 @@ class UserViewSet(viewsets.ModelViewSet):
         password = request.data.get("password")
         
         user = login_user_service(email, password)
-        if not user:
-            return Response({"success": False, "err": "Invalid password or email!"})
+        if user is None:
+            return Response({"success": False, "err": "Invalid password or email!"}, status=status.HTTP_404_NOT_FOUND)
         
         return Response({"success": True, 
             "data": self.serializer_class(user).data
@@ -54,3 +56,13 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response({"success": True, 
             "data": self.serializer_class(user).data
         }, status=status.HTTP_201_CREATED)
+
+    @action(
+        detail=False,
+        methods=["GET"],
+        permission_classes=(permissions.IsAuthenticated,),
+        url_path="get-user"
+    )
+    def get_user(self, request, *args, **kwargs):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data, status=status.HTTP_200_OK)

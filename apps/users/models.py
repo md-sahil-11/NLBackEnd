@@ -10,6 +10,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, db_index=True)
     created_at = models.DateTimeField(default=timezone.now)
     updated_at = models.DateTimeField(default=timezone.now)
+    picture = models.ImageField(upload_to='images/users', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"

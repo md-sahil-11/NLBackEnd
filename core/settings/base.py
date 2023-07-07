@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     "apps.users",
+    "apps.apps"
 ]
 
 AUTH_USER_MODEL = "users.User" 
@@ -141,7 +142,11 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    # 'DEFAULT_PARSER_CLASSES': (
+    #     'rest_framework.parsers.FormParser',
+    #     'rest_framework.parsers.MultiPartParser'
+    #  )
 }
-# TOKEN_TTL = config("TOKEN_TTL")
+TOKEN_TTL = config("TOKEN_TTL")
 
 

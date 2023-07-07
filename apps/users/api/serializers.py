@@ -7,6 +7,7 @@ from apps.users.selectors import add_token_to_user_serializer_selector
 
 
 class UserSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False)
 
     class Meta:
         model = User
@@ -14,7 +15,9 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "email",
             "name",
+            "image",
             "created_at",
+            "is_superuser"
         )
         read_only_fields = (
             "created_at",
@@ -24,3 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
         data = super(UserSerializer, self).to_representation(instance)
         data = add_token_to_user_serializer_selector(data, instance)
         return data
+    
+    # def get_picture(self, instance):
+    #     return instance.picture.url if instance.picture else None

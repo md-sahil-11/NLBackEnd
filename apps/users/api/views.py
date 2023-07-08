@@ -26,9 +26,10 @@ class UserViewSet(viewsets.ModelViewSet):
         user = login_user_service(email, password)
         if user is None:
             return Response({"success": False, "err": "Invalid password or email!"}, status=status.HTTP_404_NOT_FOUND)
-        
+        data = self.serializer_class(user).data
+        data = add_token_to_user_serializer_selector(data, user)
         return Response({"success": True, 
-            "data": self.serializer_class(user).data
+            "data": data
         }, status=status.HTTP_200_OK)
 
     @action(
@@ -52,9 +53,10 @@ class UserViewSet(viewsets.ModelViewSet):
         user = register_user_service(email, password, name)
         if not user:
             return Response({"success": False, "err": "Invalid password or email!"})
-        
+        data = self.serializer_class(user).data
+        data = add_token_to_user_serializer_selector(data, user)
         return Response({"success": True, 
-            "data": self.serializer_class(user).data
+            "data": data
         }, status=status.HTTP_201_CREATED)
 
     @action(
@@ -65,4 +67,7 @@ class UserViewSet(viewsets.ModelViewSet):
     )
     def get_user(self, request, *args, **kwargs):
         serializer = UserSerializer(request.user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        data = serializer.data
+        data = add_token_to_user_serializer_selector(data, request.user)
+        
+        return Response(data, status=status.HTTP_200_OK)

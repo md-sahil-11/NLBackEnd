@@ -12,6 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     updated_at = models.DateTimeField(default=timezone.now)
     picture = models.ImageField(upload_to='images/users', null=True, blank=True)
     is_staff = models.BooleanField(default=False)
+    points = models.FloatField(default=0.0)
 
     USERNAME_FIELD = "email"
 

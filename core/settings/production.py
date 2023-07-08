@@ -9,7 +9,7 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     "https://nl-frontend-seven.vercel.app",
-    "nl-frontend-seven.vercel.app/sign-up",
+    "nl-frontend-seven.vercel.app",
     "http://sahil11.pythonanywhere.com",
     "sahil11.pythonanywhere.com",
     "http://localhost:8000",

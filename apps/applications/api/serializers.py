@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
-from apps.apps.models import *
+from apps.applications.models import *
+from apps.users.models import User
 from apps.users.api.serializers import UserSerializer
 
 

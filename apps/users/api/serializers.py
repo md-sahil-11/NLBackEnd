@@ -5,7 +5,7 @@ from rest_framework import serializers
 from django.db.models import Sum
 
 from apps.users.models import User
-from apps.apps.models import Task, App
+from apps.applications.models import App
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -40,5 +40,5 @@ class UserSerializer(serializers.ModelSerializer):
         return instance.tasks.count()
     
     def get_task_total(self, instance):
-        return Task.objects.count()
+        return App.objects.count()
         

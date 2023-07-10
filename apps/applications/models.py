@@ -33,10 +33,10 @@ class App(CustomBaseModel):
 
 
 class Task(CustomBaseModel):
-    app = models.OneToOneField(App, related_name="task", on_delete=models.CASCADE, null=True)
+    app = models.ForeignKey(App, related_name="task", on_delete=models.CASCADE, null=True)
     user = models.ForeignKey(User, related_name="tasks", on_delete=models.CASCADE, null=True)
-    is_completed = models.BooleanField(default=False)
     screenshot = models.ImageField(upload_to='images/screenshots', null=True)
+    is_completed = models.BooleanField(default=False)
 
     class Meta:
         ordering = ["-updated_at", "-created_at"]

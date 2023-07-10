@@ -10,13 +10,15 @@ DATABASES = {
 CORS_ALLOWED_ORIGINS = [
     "https://nl-frontend-seven.vercel.app",
     "http://sahil11.pythonanywhere.com",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+]
+
+ALLOWED_HOSTS = [
+    "sahil11.pythonanywhere.com",
+    "nl-frontend-seven.vercel.app"
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
 
 CORS_ORIGIN_WHITELIST = (
     "https://nl-frontend-seven.vercel.app",
